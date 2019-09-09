@@ -34,8 +34,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //不带数据界面跳转
-                Intent intent=new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent=new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
+                SplashActivity.this.finish();
             }
         };
         timer.schedule(task,5000);

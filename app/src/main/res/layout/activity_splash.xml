@@ -17,11 +17,11 @@
        <!--android:layout_height="match_parent" />-->
     <TextView
         android:id="@+id/tv_version"
-        android:text="版本号"
-        android:textSize="24sp"
-        android:textColor="#fffffffffff"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_height="match_parent" />
+        android:gravity="center"
+        android:text="版本号"
+        android:textColor="#ffffff"
+        android:textSize="24sp" />
 </LinearLayout>

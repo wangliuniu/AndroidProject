@@ -11,13 +11,15 @@
         android:theme="@style/NoActionBar">
         <activity android:name="com.example.myapplication.LoginActivity"></activity>
         <activity android:name="com.example.myapplication.RegisterActivity" />
-        <activity android:name="com.example.myapplication.SplashActivity" />
-        <activity android:name="com.example.myapplication.MainActivity">
+        <activity android:name="com.example.myapplication.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.example.myapplication.MainActivity">
+
         </activity>
     </application>
 

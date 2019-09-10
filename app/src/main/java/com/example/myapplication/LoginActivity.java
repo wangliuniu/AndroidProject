@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initToolbar();
         initView();
-        initData();
+//        initData();
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -54,9 +54,10 @@ public class LoginActivity extends AppCompatActivity {
                     // 给bnt1添加点击响应事件
                     saveLoginStatus(username,true);
                     //跳转到我的页面
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent();
                     intent.putExtra("isLogin",true);
-                    startActivity(intent);
+                    intent.putExtra("loginUser",true);
+                   setResult(RESULT_OK,intent);
                     LoginActivity.this.finish();
 
                 }
@@ -116,15 +117,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void initData(){
-        String username = readPwd();
-        if (!TextUtils.isEmpty(username)){
-            etUsername.setText(username);
-        }
-    }
-    private String readPwd(){
+//    private void initData(){
+    //  Intent intent =getIntent();
+//        String username = intent().getStringExtra("username")
+//        if (!TextUtils.isEmpty(username)){
+//            etUsername.setText(username);
+//        }
+//    }
+    private String readPwd(String username){
         SharedPreferences sp = getSharedPreferences("userInfo" , MODE_PRIVATE);
-        return sp.getString("username" , "");
+        return sp.getString(username , "");
     }
     private void getUserName() {
         Intent intent = getIntent();

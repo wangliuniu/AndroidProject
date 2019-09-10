@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private SparseArray<String> titles;
     private SparseArray<Fragment> fragment;
     private void initFragment(){
+        fragment=new SparseArray<>();
         fragment = new SparseArray<>();
         fragment.put(R.id.btn_my,MySettingFragment.newInstance());
         replaceFragment(fragment.get(R.id.btn_my));
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initFragment();
+        initTitles();
     }
 
 }

@@ -26,7 +26,7 @@ public class MySettingFragment extends Fragment {
     private TextView tvUsername;
     private Context mContext;
     private LinearLayout headLayout;
-    private RelativeLayout historyLayout,settingLayout;
+    private TextView historyLayout,settingLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,7 +90,6 @@ public class MySettingFragment extends Fragment {
 
         return view;
     }
-
     private void setUsername(boolean isLogin) {
         if(isLogin){
             tvUsername.setText(readLoginInfo());

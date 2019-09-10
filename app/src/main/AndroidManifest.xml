@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name="com.example.myapplication.LoginActivity"></activity>
+        <activity android:name="com.example.myapplication.ProtectPasswordActivity"></activity>
+        <activity android:name="com.example.myapplication.ForgetPasswordActivity" />
+        <activity android:name="com.example.myapplication.SettingActivity" />
+        <activity android:name="com.example.myapplication.LoginActivity" />
         <activity android:name="com.example.myapplication.RegisterActivity" />
-        <activity android:name="com.example.myapplication.SplashActivity" >
+        <activity android:name="com.example.myapplication.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myapplication.MainActivity">
-
-        </activity>
+        <activity android:name="com.example.myapplication.MainActivity" />
     </application>
 
 </manifest>

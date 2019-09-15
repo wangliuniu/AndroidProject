@@ -78,14 +78,27 @@ public class MySettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isLogin){
-
+                    Intent intent=new Intent(mContext,SettingActivity.class);
+                    startActivity(intent);
                 }else{
                  Intent intent=new Intent(mContext,LoginActivity.class);
                  startActivityForResult(intent,1);
                 }
             }
         });
+        settingLayout.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                if(isLogin){
+                    Intent intent=new Intent(mContext,SettingActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent=new Intent(mContext,LoginActivity.class);
+                    startActivityForResult(intent,1);
+                }
+            }
+        });
 
 
         return view;
@@ -101,6 +114,7 @@ public class MySettingFragment extends Fragment {
         SharedPreferences sp=mContext.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
         return sp.getString("loginUser","");
    }
+
    public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 

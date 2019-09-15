@@ -14,6 +14,7 @@ public class ProtectPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_protect_password);
+        initToolbar();
     }
 
     private void initToolbar(){

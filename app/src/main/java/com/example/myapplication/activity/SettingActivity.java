@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +34,7 @@ public class SettingActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SettingActivity.this,ForgetPasswordActivity.class);
+                Intent intent=new Intent(SettingActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });

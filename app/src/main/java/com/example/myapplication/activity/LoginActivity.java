@@ -1,10 +1,7 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.widget.Toast;
 
 
 import com.example.helloworld.R;
-import com.example.myapplication.Util.MD5Utils;
 
 public class LoginActivity extends AppCompatActivity {
     private Toolbar toolbar;

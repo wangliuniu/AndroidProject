@@ -11,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.helloworld.R;
-import com.example.myapplication.SettingActivity;
+import com.example.myapplication.activity.SettingActivity;
 
 
 public class StatusUtils {

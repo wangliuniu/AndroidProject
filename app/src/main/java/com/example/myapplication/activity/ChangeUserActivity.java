@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,18 +8,17 @@ import android.view.View;
 
 import com.example.helloworld.R;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ChangeUserActivity extends AppCompatActivity {
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
+        setContentView(R.layout.activity_change_user);
         initToolbar();
     }
-
     private void initToolbar(){
         toolbar = findViewById(R.id.title_toolbar);
-        toolbar.setTitle("修改密码");
+        toolbar.setTitle("设置昵称");
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -30,8 +29,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ForgetPasswordActivity.this.finish();
+               ChangeUserActivity.this.finish();
             }
         });
     }
+
 }

@@ -9,19 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name="com.example.myapplication.ProtectPasswordActivity" />
-        <activity android:name="com.example.myapplication.ForgetPasswordActivity" />
-        <activity android:name="com.example.myapplication.SettingActivity" />
-        <activity android:name="com.example.myapplication.LoginActivity" />
-        <activity android:name="com.example.myapplication.RegisterActivity" />
-        <activity android:name="com.example.myapplication.SplashActivity">
+        <activity android:name="com.example.myapplication.activity.ChangeUserActivity"></activity>
+        <activity android:name="com.example.myapplication.activity.UserActivity" />
+        <activity android:name="com.example.myapplication.activity.ProtectPasswordActivity" />
+        <activity android:name="com.example.myapplication.activity.ForgetPasswordActivity" />
+        <activity android:name="com.example.myapplication.activity.SettingActivity" />
+        <activity android:name="com.example.myapplication.activity.LoginActivity" />
+        <activity android:name="com.example.myapplication.activity.RegisterActivity" />
+        <activity android:name="com.example.myapplication.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myapplication.MainActivity" />
+        <activity android:name="com.example.myapplication.activity.MainActivity" />
     </application>
 
 </manifest>

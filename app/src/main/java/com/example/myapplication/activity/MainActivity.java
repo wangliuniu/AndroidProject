@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.helloworld.R;
+import com.example.myapplication.fragment.MySettingFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFragment(){
         fragment=new SparseArray<>();
         fragment = new SparseArray<>();
-        fragment.put(R.id.btn_my,MySettingFragment.newInstance());
+        fragment.put(R.id.btn_my, MySettingFragment.newInstance());
         replaceFragment(fragment.get(R.id.btn_my));
     }
     private void replaceFragment(Fragment fragment){

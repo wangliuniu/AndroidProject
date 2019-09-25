@@ -1,36 +1,52 @@
 package com.example.myapplication.activity;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.helloworld.R;
+
+import com.example.myapplication.entity.Exercise;
 import com.example.myapplication.fragment.MySettingFragment;
+import com.example.myapplication.fragment.PractiseFragment;
+import com.example.myapplication.fragment.RecyclerViewFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RadioGroup group;
+    private List<Exercise> exercises=new ArrayList<>();
     //定义标题的集合
     private SparseArray<String> titles;
     private SparseArray<Fragment> fragment;
     private void initFragment(){
         fragment=new SparseArray<>();
-        fragment = new SparseArray<>();
         fragment.put(R.id.btn_my, MySettingFragment.newInstance());
+//        fragment.put(R.id.btn_execise, PractiseFragment.newInstance("Activity向Fragment传值"));
+        fragment.put(R.id.btn_execise, RecyclerViewFragment.newInstance("Activity向Fragment传值"));
+
         replaceFragment(fragment.get(R.id.btn_my));
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction ft=manager.beginTransaction();
         ft.replace(R.id.main_body,fragment);
+        ft.addToBackStack(null);
         ft.commit();
+
     }
     private void initTitles(){
         titles = new SparseArray<>();
@@ -47,17 +63,19 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setTitle(titles.get(checkedId));
         }
     }
+
     private void initView(){
         group = findViewById(R.id.btn_group);
-        toolbar = findViewById(R.id.title_toolbar);
-        setToolbar(group.getCheckedRadioButtonId());
+//        toolbar = findViewById(R.id.title_toolbar);
+//        setToolbar(group.getCheckedRadioButtonId());
 
         // RadioGroup的选项改变事件的监听
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(MainActivity.this , titles.get(checkedId) , Toast.LENGTH_SHORT).show();
-                setToolbar(checkedId);
+//                Toast.makeText(MainActivity.this , titles.get(checkedId) , Toast.LENGTH_SHORT).show();
+//                setToolbar(checkedId);
+                replaceFragment(fragment.get(checkedId));
             }
         });
     }
@@ -66,8 +84,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initFragment();
-        initTitles();
+        initView();
+//        initTitles();
+
+
     }
 
 }

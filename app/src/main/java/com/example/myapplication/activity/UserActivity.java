@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helloworld.R;
 import com.example.myapplication.Util.SharedUtils;
@@ -166,7 +168,33 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putInt("flag",2);//用于区分修改昵称还是签名
         intent.putExtras(bundle);
         //启动下一个界面
-        startActivityForResult(intent,1);
+        startActivityForResult(intent,2);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //对空数据，返回异常做判断
+        if(data==null || resultCode != RESULT_OK){
+            Toast.makeText(this,"未知错误",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //根据requestCode进行对应的保存
+        //获取data数据
+        if(requestCode==1){
+            //设置user对应的属性
+            String value=data.getStringExtra("nickname");
+            tvNickname.setText(value);
+            user.setNickname(value);
+
+        }else if(requestCode==2){
+            String value=data.getStringExtra("signature");
+            tvSignature.setText(value);
+            user.setSignature(value);
+
+        }
+        //保存到数据库
+        service.modify(user);
     }
 }

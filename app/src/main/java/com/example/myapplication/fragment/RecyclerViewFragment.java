@@ -1,6 +1,7 @@
 package com.example.myapplication.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.helloworld.R;
+import com.example.myapplication.activity.ExerciseDetailActivity;
 import com.example.myapplication.adapter.ExerciseAdapter;
 
 import com.example.myapplication.adapter.RecyclerViewAdapter;
@@ -86,7 +88,23 @@ public class RecyclerViewFragment extends Fragment {
         RecyclerViewAdapter adapter =new RecyclerViewAdapter(exercises);
         //5.设置适配器
         recyclerView.setAdapter(adapter);
+        //6.设置监听器
+        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickLisrener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Exercise exercise=exercises.get(position);
+                //跳转相应的章节习题
+                Intent intent=new Intent(getContext(), ExerciseDetailActivity.class);
+                intent.putExtra("id",exercise.getId());//用于识别是哪个xml文件
+                intent.putExtra("title",exercise.getTitle());//用于设置标题栏
+                getContext().startActivity(intent);
+            }
 
+            @Override
+            public void onItemLongClick(View view, int positon) {
+
+            }
+        });
         return view;
     }
 

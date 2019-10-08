@@ -7,6 +7,15 @@ public class Exercise implements Serializable {
     private String title;
     private String subTitle;
     private int background;//题目标题的背景
+   private String bgColor;
+
+    public String getBgColor() {
+        return bgColor;
+    }
+
+    public void setBgColor(String bgColor) {
+        this.bgColor = bgColor;
+    }
 
     @Override
     public String toString() {

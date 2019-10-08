@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.helloworld.R;
 
 import com.example.myapplication.entity.Exercise;
+import com.example.myapplication.fragment.CourseFragment;
 import com.example.myapplication.fragment.MySettingFragment;
 import com.example.myapplication.fragment.PractiseFragment;
 import com.example.myapplication.fragment.RecyclerViewFragment;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.put(R.id.btn_my, MySettingFragment.newInstance());
 //        fragment.put(R.id.btn_execise, PractiseFragment.newInstance("Activity向Fragment传值"));
         fragment.put(R.id.btn_execise, RecyclerViewFragment.newInstance("Activity向Fragment传值"));
-
+        fragment.put(R.id.btn_course, CourseFragment.newInstance());
         replaceFragment(fragment.get(R.id.btn_my));
     }
     private void replaceFragment(Fragment fragment){

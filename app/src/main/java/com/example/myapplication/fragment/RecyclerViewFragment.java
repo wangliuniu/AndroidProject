@@ -11,17 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.example.helloworld.R;
 import com.example.myapplication.activity.ExerciseDetailActivity;
-import com.example.myapplication.adapter.ExerciseAdapter;
 
 import com.example.myapplication.adapter.RecyclerViewAdapter;
 import com.example.myapplication.entity.Exercise;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +81,7 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(),
                 DividerItemDecoration.VERTICAL));
         //4.创建适配器
-        RecyclerViewAdapter adapter =new RecyclerViewAdapter(exercises);
+        RecyclerViewAdapter<RecyclerView.ViewHolder> adapter =new RecyclerViewAdapter<RecyclerView.ViewHolder>(exercises);
         //5.设置适配器
         recyclerView.setAdapter(adapter);
         //6.设置监听器

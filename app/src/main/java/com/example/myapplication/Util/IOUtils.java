@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,5 +91,22 @@ public class IOUtils {
             eventType = parser.next();
         }
         return details;
+    }
+
+
+    public static String convert(InputStream is, Charset encode) {
+        try{
+            String line;
+            StringBuilder builder = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            while ((line = reader.readLine()) != null){
+                builder.append(line);
+            }
+            reader.close();
+            return builder.toString();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

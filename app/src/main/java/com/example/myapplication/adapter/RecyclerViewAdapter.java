@@ -15,7 +15,7 @@ import com.example.myapplication.entity.Exercise;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<Exercise> exercises;
 
     static class ViewHolder extends RecyclerView.ViewHolder{

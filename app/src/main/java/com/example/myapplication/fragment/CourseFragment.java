@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.textclassifier.TextLinks;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,12 +19,16 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.helloworld.R;
+import com.example.myapplication.Util.HttpsUtil;
 import com.example.myapplication.Util.IOUtils;
+import com.example.myapplication.Util.NetworkUtils;
 import com.example.myapplication.adapter.AdViewPageAdapter;
 
 import com.example.myapplication.adapter.CourseRecyclerAdapter;
 import com.example.myapplication.entity.AdImage;
 import com.example.myapplication.entity.Course;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +36,11 @@ import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class CourseFragment extends Fragment implements ViewPager.OnPageChangeListener {
     public static final int MSG_AD_ID =1;
@@ -99,8 +109,13 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
         viewPager.setAdapter(new AdViewPageAdapter(imageViews));
         adhandler=new AdHandler(viewPager);
         adhandler.sendEmptyMessageDelayed(MSG_AD_ID,5000);
-        initCourses();
-        initCourseView(view);
+
+        rvCourse=view.findViewById(R.id.rv_courses);
+
+//        initCourses();
+//        updateCourse(courses);
+//        loadCourseByNet();
+        loadCourseByOkHttp();
 
         return view;
 
@@ -113,6 +128,7 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
             InputStream is=getResources().getAssets().open("chapter_intro.json");
             String json= IOUtils.convert(is, StandardCharsets.UTF_8);
             courses = JSON.parseArray(json, Course.class);
+
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -120,8 +136,7 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
 
     }
 
-    private void initCourseView(View view) {
-        rvCourse=view.findViewById(R.id.rv_courses);
+    private void updateCourse(final List<Course> courses) {
         CourseRecyclerAdapter adapter=new CourseRecyclerAdapter(courses);
         rvCourse.setLayoutManager(new GridLayoutManager(getContext(),2));
         rvCourse.setAdapter(adapter);
@@ -216,27 +231,90 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
     public void onPageScrollStateChanged(int i) {
 
     }
+    private static  class  CourseHandler extends Handler{
+        private WeakReference<CourseFragment> ref;
+        private Object List;
+
+
+        public CourseHandler(CourseFragment fragment){
+            this.ref=new WeakReference<>(fragment);
+        }
+        @Override
+        public void handleMessage(Message msg){
+            CourseFragment target=ref.get();
+            if (msg.what==MSG_AD_ID){
+                target.updateCourse((List<Course>)msg.obj);
+            }
+        }
+    }
+    private void loadCourseByNet() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String json = null;
+                try {
+                    json = NetworkUtils.get("https://www.fastmock.site/mock/f62027403dd4de21b5ec88069fe9be8d/test/course");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                List<Course> courses = JSON.parseArray(json, Course.class);
+                if (courses != null) {
+                    Message msg = new Message();
+                    msg.what = MSG_AD_ID;
+                    msg.obj = courses;
+                    courseHandler.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+   private Handler courseHandler =new CourseHandler(this);
+  private void loadCourseByOkHttp(){
+      Request request=new Request.Builder().url("https://www.fastmock.site/mock/f62027403dd4de21b5ec88069fe9be8d/test/course")
+              .addHeader("Accept","application/json").method("GET",null).build();
+      HttpsUtil.handleSSLHandshakeByOkHttp().newCall(request).enqueue(new Callback() {
+          @Override
+          public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+          }
+
+          @Override
+          public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+              if (response.isSuccessful()) {
+                  if (response.body() != null) {
+                      String json = response.body().string();
+                      final List<Course> courses = JSON.parseArray(json, Course.class);
+                      getActivity().runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              updateCourse(courses);
+                          }
+                      });
+                  }
+              }
+          }
+      });
+
+  }
+
+
     /*
      * 使用多线程实现广告自动切换
      * */
-    private class AdSlideThread extends Thread{
+    private class AdSlideThread extends Thread {
         @Override
-        public void run(){
+        public void run() {
             super.run();
-            while (true){
+            while (true) {
                 try {
                     sleep(5000);
-                } catch (InterruptedException e){
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (adhandler !=null){
+                if (adhandler != null) {
                     adhandler.sendEmptyMessage(MSG_AD_ID);
                 }
 
             }
         }
     }
-
 }
-
-

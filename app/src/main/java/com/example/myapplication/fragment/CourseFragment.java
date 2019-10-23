@@ -1,5 +1,6 @@
 package com.example.myapplication.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import com.example.helloworld.R;
 import com.example.myapplication.Util.HttpsUtil;
 import com.example.myapplication.Util.IOUtils;
 import com.example.myapplication.Util.NetworkUtils;
+import com.example.myapplication.activity.CourseVideoActivity;
 import com.example.myapplication.adapter.AdViewPageAdapter;
 
 import com.example.myapplication.adapter.CourseRecyclerAdapter;
@@ -145,6 +147,15 @@ public class CourseFragment extends Fragment implements ViewPager.OnPageChangeLi
             public void onItemClick(View view, int position) {
                 Course course=courses.get(position);
                 Toast.makeText(getContext(),"点击了："+course.getTitle(),Toast.LENGTH_SHORT).show();
+                //跳转到课程详情页面
+             Intent intent=new Intent(getContext(), CourseVideoActivity.class);
+             Bundle bundle=new Bundle();
+             bundle.putSerializable("course",course);
+             intent.putExtras(bundle);
+             startActivity(intent);
+
+
+
             }
         });
 

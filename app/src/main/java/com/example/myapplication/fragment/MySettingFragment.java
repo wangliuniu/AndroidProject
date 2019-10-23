@@ -12,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helloworld.R;
+import com.example.myapplication.activity.PlayRecordActivity;
+import com.example.myapplication.activity.ProtectPasswordActivity;
 import com.example.myapplication.activity.UserActivity;
 import com.example.myapplication.activity.LoginActivity;
 import com.example.myapplication.activity.SettingActivity;
@@ -56,7 +59,7 @@ public class MySettingFragment extends Fragment {
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
     }
-//初始化Fragment的xml界面上的所有控件和数据，相当于Activity的onCreat()方法的作用
+    //初始化Fragment的xml界面上的所有控件和数据，相当于Activity的onCreat()方法的作用
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,8 +86,22 @@ public class MySettingFragment extends Fragment {
                     Intent intent=new Intent(mContext, UserActivity.class);
                     startActivity(intent);
                 }else{
-                 Intent intent=new Intent(mContext, LoginActivity.class);
-                 startActivityForResult(intent,1);
+                    Intent intent=new Intent(mContext, LoginActivity.class);
+                    startActivityForResult(intent,1);
+                }
+            }
+        });
+        historyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isLogin){
+                    Intent intent = new Intent(getContext(), PlayRecordActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name",readLoginInfo());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(mContext,"请先登录", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -109,20 +126,20 @@ public class MySettingFragment extends Fragment {
         if(isLogin){
             tvUsername.setText(readLoginInfo());
         }else{
-           tvUsername.setText("点击登录");
+            tvUsername.setText("点击登录");
         }
     }
-   private String readLoginInfo(){
+    private String readLoginInfo(){
         SharedPreferences sp=mContext.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
         return sp.getString("loginUser","");
-   }
+    }
 
-   public void onActivityResult(int requestCode,int resultCode,Intent data){
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
         if(requestCode==1&&resultCode== Activity.RESULT_OK&&data!=null){
             isLogin=data.getBooleanExtra("isLogin",false);
             setUsername(isLogin);
         }
-   }
+    }
 }
